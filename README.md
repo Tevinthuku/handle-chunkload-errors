@@ -3,9 +3,10 @@
 This errors can occur when a user has your app open & a deployment happens.
 In this simple example we can assume that about page which is loaded in dynamically has hashed name of
 `about.old123.chunk.js`
-After tweaking the file & running the deployment, the name changes to
+After modifying the file & running the deployment, the name can change to
 `about.new345.chunk.js`.
 In this particular case, when a user who is viewing the old assets clicks on the about link, the app tries to fetch `about.old123.chunk.js` which is the old asset & no longer exists.
+This causes the app to crash.
 
 ## This solution
 

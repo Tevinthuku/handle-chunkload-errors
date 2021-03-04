@@ -8,14 +8,14 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidMount() {
-    this.alreadyReloadedPageTimeOut = setTimeout(
-      () => this.resetStoredPageReloadError(),
+    this.resetPageReloadTimeout = setTimeout(
+      () => this.resetPageReloadError(),
       1000
     );
   }
 
   componentWillUnmount() {
-    clearTimeout(this.alreadyReloadedPageTimeOut);
+    clearTimeout(this.resetPageReloadTimeout);
   }
 
   static getDerivedStateFromError(error) {
@@ -31,7 +31,7 @@ export default class ErrorBoundary extends React.Component {
     localStorage.setItem(CHUNKERROR_PAGE_RELOAD_KEY, "yes");
   }
 
-  resetStoredPageReloadError() {
+  resetPageReloadError() {
     localStorage.removeItem(CHUNKERROR_PAGE_RELOAD_KEY);
   }
 
