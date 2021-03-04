@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+## Chunk Load Errors
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This errors can occur when a user has your app open & a deployment happens.
+In this simple example we can assume that about page which is loaded in dynamically has hashed name of
+`about.old123.chunk.js`
+After tweaking the file & running the deployment, the name changes to
+`about.new345.chunk.js`.
+In this particular case, when a user who is viewing the old assets clicks on the about link, the app tries to fetch `about.old123.chunk.js` which is the old asset & no longer exists.
 
-## Available Scripts
+## This solution
 
-In the project directory, you can run:
+What we do in this solution check if the error is a `ChunkLoadError` & if it didn't already reload in the last 1 second. See `src/errorboundary.js`. If this conditions are met, we reload the page & the browser can then fetch the updated assets.
 
-### `yarn start`
+## How to test this & reproduce ChunkLoadError.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Install [Serve](https://www.npmjs.com/package/serve) globally
+2. Clone the repo & run `yarn` to install the packages.
+3. Run `yarn build` to build the app.
+4. Run `serve -s build` to serve the built asset in a separate terminal window.
+5. Open the port specified & visit the `/` route.
+6. (Sorry, this is getting tiresome, but we are almost done) Modify the about file in the `src/routes/about.js`.. (Add a lengthy paragragh or delete most of the content that exists)
+7. Run the build again
+8. Go back to the open app & click on the `/about` link.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+What you'll realize is the page reloads & the updated about content is displayed on the browser.
+This might be a better experience for users & they dont have to manually reload the page if the issue that caused the app to break is a `ChunkLoadError`

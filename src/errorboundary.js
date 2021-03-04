@@ -45,7 +45,9 @@ export default class ErrorBoundary extends React.Component {
     if (this.isThisAValidChunkLoadError(error)) {
       this.saveChunkErrorReloadAction();
       window.location.reload(true);
+      return;
     }
+    // report the error
   }
 
   render() {

@@ -1,6 +1,6 @@
 import Routes from "./routes";
 
-import ErrorBoundary from "./error";
+import ErrorBoundary from "./errorboundary";
 
 function App() {
   return (

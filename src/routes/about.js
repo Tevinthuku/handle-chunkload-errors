@@ -35,11 +35,6 @@ function About() {
         optio voluptates hic vel cumque, modi quod, sequi obcaecati omnis quo a
         magni! Dolorum labore possimus temporibus inventore minima?
       </h6>
-      <h3>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam commodi
-        iusto sequi blanditiis odit, aut saepe atque provident dicta ea soluta
-        ab quidem possimus quod beatae libero at accusantium exercitationem!
-      </h3>
     </div>
   );
 }
